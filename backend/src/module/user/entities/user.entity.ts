@@ -4,6 +4,6 @@ import { Post } from '../../post/entities/post.entity';
 
 @ObjectType()
 export class User extends PickType(UserModel, ['email', 'name', 'id', 'uuid']) {
-  @Field(() => [Post], { description: '投稿' })
-  posts: Post[];
+  @Field(() => [Post], { description: '投稿', nullable: true })
+  posts?: Post[];
 }
