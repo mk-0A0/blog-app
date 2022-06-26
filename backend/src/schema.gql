@@ -36,6 +36,11 @@ type CategoryEntity {
   uuid: String!
 }
 
+input CreateCategoryInput {
+  """カテゴリー名"""
+  name: String!
+}
+
 input CreatePostInput {
   """記事に付けるカテゴリー"""
   categoryUuids: [String!]
@@ -51,11 +56,20 @@ input CreatePostInput {
 }
 
 type Mutation {
+  """カテゴリーを作成する"""
+  createCategory(createCategoryInput: CreateCategoryInput!): Category!
+
   """記事を作成する"""
   createPost(createPostInput: CreatePostInput!): Post!
 
+  """カテゴリーを削除する"""
+  deleteCategory(uuid: String!): Category!
+
   """記事を削除する"""
   deletePost(uuid: String!): Post!
+
+  """カテゴリーを更新する"""
+  updateCategory(updateCategoryInput: CreateCategoryInput!, uuid: String!): Category!
 
   """記事を更新する"""
   updatePost(updatePostInput: CreatePostInput!): Post!
@@ -120,7 +134,11 @@ type PostEntity {
 }
 
 type Query {
-  category: [Category!]!
+  """カテゴリーを複数取得する"""
+  categories: [Category!]!
+
+  """uuidからカテゴリーを取得する"""
+  category(uuid: String!): Category!
 
   """記事を取得する"""
   post(uuid: String!): Post!

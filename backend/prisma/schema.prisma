@@ -74,7 +74,7 @@ model Category {
   /// uuid
   uuid      String   @unique @default(uuid())
   /// カテゴリー名
-  name      String
+  name      String   @unique
   /// カテゴリーに紐付いている記事
   posts     Post[]   @relation(references: [id])
   /// カテゴリーの作成日
