@@ -9,6 +9,8 @@ const initialUser: User = {
   email: 'user@example.com',
   password: '123456',
   name: 'user',
+  createdAt: new Date('2020-01-01T00:00:00.000Z'),
+  updatedAt: new Date('2020-01-01T00:00:00.000Z'),
 };
 const doSeed = async () => {
   return await prisma.$transaction([prisma.user.create({ data: initialUser })]);

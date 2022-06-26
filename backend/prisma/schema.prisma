@@ -17,52 +17,70 @@ generator nestgraphql {
 
 /// @ObjectType('UserEntity')
 model User {
-  // id
-  id    Int    @id @default(autoincrement())
-  // uuid
-  uuid  String @unique @default(uuid())
-  // メールアドレス
-  email String @unique
-  // パスワード
-  password String
-  // 名前
-  name  String
-  // ユーザーが投稿した記事
-  posts Post[]
+  /// id
+  id        Int      @id @default(autoincrement())
+  /// uuid
+  uuid      String   @unique @default(uuid())
+  /// メールアドレス
+  email     String   @unique
+  /// パスワード
+  /// @HideField()
+  password  String
+  /// 名前
+  name      String
+  /// ユーザーが投稿した記事
+  posts     Post[]
+  ///ユーザーの作成日
+  /// @HideField()
+  createdAt DateTime @default(now())
+  ///ユーザーの更新日
+  /// @HideField()
+  updatedAt DateTime @default(now())
 }
 
 /// @ObjectType('PostEntity')
 model Post {
-  // id
+  /// id
   id          Int        @id @default(autoincrement())
-  // uuid
+  /// uuid
   uuid        String     @unique @default(uuid())
-  // 記事の作成日
+  /// 記事の作成日
+  /// @HideField()
   createdAt   DateTime   @default(now())
-  // 記事の更新日
-  udpatedAt   DateTime   @default(now())
-  // 記事のタイトル
+  /// 記事の更新日
+  /// @HideField()
+  updatedAt   DateTime   @default(now())
+  /// 記事のタイトル
   title       String
-  // 記事の本文
+  /// 記事の本文
   content     String
-  // 記事が公開しているかどうか
+  /// 記事が公開しているかどうか
   isPublished Boolean    @default(false)
-  // 記事の作者
+  ///記事の公開日
+  /// @HideField()
+  publishedAt DateTime?
+  /// 記事の作者
   author      User       @relation(fields: [authorId], references: [id])
-  // 記事の作者のID
+  /// 記事の作者のID
   authorId    Int
-  // 記事のカテゴリー
+  /// 記事のカテゴリー
   categories  Category[] @relation(references: [id])
 }
 
 /// @ObjectType('CategoryEntity')
 model Category {
-  // id
-  id    Int    @id @default(autoincrement())
-  // uuid
-  uuid  String @unique @default(uuid())
-  // カテゴリー名
-  name  String
-  // カテゴリーに紐付いている記事
-  posts Post[] @relation(references: [id])
+  /// id
+  id        Int      @id @default(autoincrement())
+  /// uuid
+  uuid      String   @unique @default(uuid())
+  /// カテゴリー名
+  name      String
+  /// カテゴリーに紐付いている記事
+  posts     Post[]   @relation(references: [id])
+  /// カテゴリーの作成日
+  /// @HideField()
+  createdAt DateTime @default(now())
+  // カテゴリーの作成日
+  /// @HideField()
+  updatedAt DateTime @default(now())
 }
