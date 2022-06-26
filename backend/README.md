@@ -17,5 +17,5 @@ $ docker-compose up
 $ start:dev
 ```
 ```shell
-$ open http://localhost:4000
+$ open http://localhost:4000/graphql
 ```
