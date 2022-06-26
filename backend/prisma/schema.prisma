@@ -32,10 +32,12 @@ model User {
   posts     Post[]
   ///ユーザーの作成日
   /// @HideField()
-  createdAt DateTime @default(now())
+  createdAt DateTime @default(now()) @map("created_at")
   ///ユーザーの更新日
   /// @HideField()
-  updatedAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @map("updated_at")
+
+  @@map("user")
 }
 
 /// @ObjectType('PostEntity')
@@ -46,25 +48,27 @@ model Post {
   uuid        String     @unique @default(uuid())
   /// 記事の作成日
   /// @HideField()
-  createdAt   DateTime   @default(now())
+  createdAt   DateTime   @default(now()) @map("created_at")
   /// 記事の更新日
   /// @HideField()
-  updatedAt   DateTime   @default(now())
+  updatedAt   DateTime   @default(now()) @map("updated_at")
   /// 記事のタイトル
   title       String
   /// 記事の本文
   content     String
   /// 記事が公開しているかどうか
-  isPublished Boolean    @default(false)
+  isPublished Boolean    @default(false) @map("is_published")
   ///記事の公開日
   /// @HideField()
-  publishedAt DateTime?
+  publishedAt DateTime?  @map("published_at")
   /// 記事の作者
   author      User       @relation(fields: [authorId], references: [id])
   /// 記事の作者のID
-  authorId    Int
+  authorId    Int        @map("author_id")
   /// 記事のカテゴリー
   categories  Category[] @relation(references: [id])
+
+  @@map("posts")
 }
 
 /// @ObjectType('CategoryEntity')
@@ -79,8 +83,10 @@ model Category {
   posts     Post[]   @relation(references: [id])
   /// カテゴリーの作成日
   /// @HideField()
-  createdAt DateTime @default(now())
+  createdAt DateTime @default(now()) @map("created_at")
   // カテゴリーの作成日
   /// @HideField()
-  updatedAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @map("updated_at")
+
+  @@map("categories")
 }
