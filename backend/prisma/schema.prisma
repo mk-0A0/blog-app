@@ -23,6 +23,8 @@ model User {
   uuid  String @unique @default(uuid())
   // メールアドレス
   email String @unique
+  // パスワード
+  password String
   // 名前
   name  String
   // ユーザーが投稿した記事
