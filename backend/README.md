@@ -12,6 +12,16 @@ $ yarn install
 $ docker-compose up
 ```
 
+### マイグレーション
+```shell
+$ npx prisma migrate
+```
+
+### typeをgenerate
+```shell
+$ npx prisma generate
+```
+
 ### 初期データ作成
 ```shell
 $ yarn seed
