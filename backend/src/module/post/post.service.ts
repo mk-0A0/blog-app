@@ -56,6 +56,30 @@ export class PostService {
     });
   }
 
+  //TODO 削除後の返り値を設定する
+  async delete(uuid: string) {
+    const hasPost = await this.prisma.post.findUnique({
+      where: {
+        uuid,
+      },
+    });
+
+    if (!hasPost) {
+      //TODO: エラーハンドリングをきちんとする
+      throw new Error('Post not found');
+    }
+
+    this.prisma.post.delete({
+      where: {
+        uuid,
+      },
+      include: {
+        author: true,
+        categories: true,
+      },
+    });
+  }
+
   findAll(currentUser: User) {
     return this.prisma.post.findMany({
       where: {

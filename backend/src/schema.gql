@@ -45,6 +45,8 @@ input CreatePostInput {
 
 type Mutation {
   createPost(createPostInput: CreatePostInput!): Post!
+  deletePost(uuid: String!): Post!
+  updatePost(updatePostInput: CreatePostInput!): Post!
 }
 
 type Post {
