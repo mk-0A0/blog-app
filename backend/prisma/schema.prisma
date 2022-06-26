@@ -1,0 +1,66 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator nestgraphql {
+  provider = "prisma-nestjs-graphql"
+  output   = "../src/prisma/@generated/prisma-nestjs-graphql"
+}
+
+/// @ObjectType('UserEntity')
+model User {
+  // id
+  id    Int    @id @default(autoincrement())
+  // uuid
+  uuid  String @unique @default(uuid())
+  // メールアドレス
+  email String @unique
+  // 名前
+  name  String
+  // ユーザーが投稿した記事
+  posts Post[]
+}
+
+/// @ObjectType('PostEntity')
+model Post {
+  // id
+  id          Int        @id @default(autoincrement())
+  // uuid
+  uuid        String     @unique @default(uuid())
+  // 記事の作成日
+  createdAt   DateTime   @default(now())
+  // 記事の更新日
+  udpatedAt   DateTime   @default(now())
+  // 記事のタイトル
+  title       String
+  // 記事の本文
+  content     String
+  // 記事が公開しているかどうか
+  isPublished Boolean    @default(false)
+  // 記事の作者
+  author      User       @relation(fields: [authorId], references: [id])
+  // 記事の作者のID
+  authorId    Int
+  // 記事のカテゴリー
+  categories  Category[] @relation(references: [id])
+}
+
+/// @ObjectType('CategoryEntity')
+model Category {
+  // id
+  id    Int    @id @default(autoincrement())
+  // uuid
+  uuid  String @unique @default(uuid())
+  // カテゴリー名
+  name  String
+  // カテゴリーに紐付いている記事
+  posts Post[] @relation(references: [id])
+}
