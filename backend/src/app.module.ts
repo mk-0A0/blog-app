@@ -5,6 +5,7 @@ import { join } from 'path';
 import { PrismaService } from './prisma/prisma.service';
 import { PostModule } from './module/post/post.module';
 import { CategoryModule } from './module/category/category.module';
+import { UserModule } from './module/user/user.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { CategoryModule } from './module/category/category.module';
     }),
     PostModule,
     CategoryModule,
+    UserModule,
   ],
   providers: [PrismaService],
 })
