@@ -2,28 +2,185 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Category {
+  """id"""
+  id: ID!
+
+  """カテゴリー名"""
+  name: String!
+
+  """カテゴリーに紐付いている記事"""
+  posts: [Post!]!
+
+  """uuid"""
+  uuid: String!
+}
+
+type CategoryCount {
+  posts: Int!
+}
+
+type CategoryEntity {
+  _count: CategoryCount!
+
+  """id"""
+  id: ID!
+
+  """カテゴリー名"""
+  name: String!
+
+  """カテゴリーに紐付いている記事"""
+  posts: [PostEntity!]
+
+  """uuid"""
+  uuid: String!
+}
+
+input CreateCategoryInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
 input CreatePostInput {
   """Example field (placeholder)"""
   exampleField: Int!
 }
 
-type Mutation {
-  createPost(createPostInput: CreatePostInput!): Post!
-  removePost(id: Int!): Post!
-  updatePost(updatePostInput: UpdatePostInput!): Post!
-}
-
-type Post {
+input CreateUserInput {
   """Example field (placeholder)"""
   exampleField: Int!
 }
 
+type Mutation {
+  createCategory(createCategoryInput: CreateCategoryInput!): Category!
+  createPost(createPostInput: CreatePostInput!): Post!
+  createUser(createUserInput: CreateUserInput!): User!
+  removeCategory(id: Int!): Category!
+  removePost(id: Int!): Post!
+  removeUser(id: Int!): User!
+  updateCategory(updateCategoryInput: UpdateCategoryInput!): Category!
+  updatePost(updatePostInput: UpdatePostInput!): Post!
+  updateUser(updateUserInput: UpdateUserInput!): User!
+}
+
+type Post {
+  """投稿者"""
+  author: User!
+
+  """記事の作者のID"""
+  authorId: Int!
+
+  """カテゴリー"""
+  categories: [Category!]!
+
+  """記事の本文"""
+  content: String!
+
+  """id"""
+  id: ID!
+
+  """記事が公開しているかどうか"""
+  isPublished: Boolean!
+
+  """記事のタイトル"""
+  title: String!
+
+  """uuid"""
+  uuid: String!
+}
+
+type PostCount {
+  categories: Int!
+}
+
+type PostEntity {
+  _count: PostCount!
+
+  """記事の作者"""
+  author: UserEntity!
+
+  """記事の作者のID"""
+  authorId: Int!
+
+  """記事のカテゴリー"""
+  categories: [CategoryEntity!]
+
+  """記事の本文"""
+  content: String!
+
+  """id"""
+  id: ID!
+
+  """記事が公開しているかどうか"""
+  isPublished: Boolean!
+
+  """記事のタイトル"""
+  title: String!
+
+  """uuid"""
+  uuid: String!
+}
+
 type Query {
+  category(id: Int!): Category!
   post(id: Int!): Post!
+  user(id: Int!): User!
+}
+
+input UpdateCategoryInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
 }
 
 input UpdatePostInput {
   """Example field (placeholder)"""
   exampleField: Int
   id: Int!
+}
+
+input UpdateUserInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+type User {
+  """メールアドレス"""
+  email: String!
+
+  """id"""
+  id: ID!
+
+  """名前"""
+  name: String!
+
+  """投稿"""
+  posts: [Post!]!
+
+  """uuid"""
+  uuid: String!
+}
+
+type UserCount {
+  posts: Int!
+}
+
+type UserEntity {
+  _count: UserCount!
+
+  """メールアドレス"""
+  email: String!
+
+  """id"""
+  id: ID!
+
+  """名前"""
+  name: String!
+
+  """ユーザーが投稿した記事"""
+  posts: [PostEntity!]
+
+  """uuid"""
+  uuid: String!
 }
