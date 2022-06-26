@@ -12,34 +12,34 @@ export class PostResolver {
   ) {}
 
   //TODO JWTGuardを作ってuserを認証ユーザーに変える
-  @Mutation(() => Post)
+  @Mutation(() => Post, { description: '記事を作成する' })
   async createPost(@Args('createPostInput') createPostInput: CreatePostInput) {
     const user = await this.user.getSeedUser();
     return this.postService.create(user, createPostInput);
   }
 
   //TODO JWTGuardを作ってuserを認証ユーザーに変える
-  @Mutation(() => Post)
+  @Mutation(() => Post, { description: '記事を更新する' })
   async updatePost(@Args('updatePostInput') updatePostInput: CreatePostInput) {
     const user = await this.user.getSeedUser();
     return this.postService.create(user, updatePostInput);
   }
 
   //TODO JWTGuardを作ってuserを認証ユーザーに変える
-  @Mutation(() => Post)
+  @Mutation(() => Post, { description: '記事を削除する' })
   deletePost(@Args('uuid') uuid: string) {
     return this.postService.delete(uuid);
   }
 
   //TODO JWTGuardを作ってuserを認証ユーザーに変える
-  @Query(() => [Post])
+  @Query(() => [Post], { description: '記事を複数取得する' })
   async posts() {
     const user = await this.user.getSeedUser();
     return this.postService.findAll(user);
   }
 
   //TODO JWTGuardを作ってuserを認証ユーザーに変える
-  @Query(() => Post)
+  @Query(() => Post, { description: '記事を取得する' })
   async post(@Args('uuid') uuid: string) {
     const user = await this.user.getSeedUser();
     return this.postService.findOne(user, uuid);
