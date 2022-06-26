@@ -4,6 +4,8 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
 import { PrismaService } from './prisma/prisma.service';
 import { PostModule } from './module/post/post.module';
+import { CategoryModule } from './module/category/category.module';
+import { UserModule } from './module/user/user.module';
 
 @Module({
   imports: [
@@ -13,6 +15,8 @@ import { PostModule } from './module/post/post.module';
       sortSchema: true,
     }),
     PostModule,
+    CategoryModule,
+    UserModule,
   ],
   providers: [PrismaService],
 })
