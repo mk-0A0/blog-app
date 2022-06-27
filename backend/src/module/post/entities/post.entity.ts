@@ -16,8 +16,8 @@ export class Post extends PickType(PostModel, [
   'authorId',
 ]) {
   @Field(() => User, { description: '投稿者' })
-  author: User;
+  author?: User;
 
   @Field(() => [Category], { description: 'カテゴリー' })
-  categories: Category[];
+  categories?: Category[];
 }
