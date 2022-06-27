@@ -18,7 +18,7 @@ export class PostService {
         isPublished,
         publishedAt: isPublished ? new Date() : null,
         categories: {
-          connect: categoryUuids.map((uuid) => ({ uuid })),
+          connect: categoryUuids?.map((uuid) => ({ uuid })),
         },
         author: {
           connect: {
@@ -42,7 +42,7 @@ export class PostService {
         title,
         content,
         categories: {
-          connect: categoryUuids.map((uuid) => ({ uuid })),
+          connect: categoryUuids?.map((uuid) => ({ uuid })),
         },
         updatedAt: new Date(),
       },

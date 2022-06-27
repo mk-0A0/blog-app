@@ -42,14 +42,20 @@ async function bootstrap() {
        * }
        */
       exceptionFactory: (errors): ValidationError[] => {
-        const messages = errors.map((error) => {
-          const constraint = error.constraints;
-          const messages = Object.values(constraint).map((n) => n);
-          return {
-            key: error.property,
-            messages,
-          };
-        });
+        const messages = errors
+          .map((error) => {
+            const constraint = error.constraints;
+
+            if (!constraint) {
+              return null;
+            }
+            const messages = Object.values(constraint).map((n) => n);
+            return {
+              key: error.property,
+              messages,
+            };
+          })
+          .filter((n): n is { key: string; messages: string[] } => Boolean(n));
         throw new BadRequestException(messages);
       },
     }),
