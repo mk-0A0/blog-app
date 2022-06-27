@@ -1,0 +1,10 @@
+{
+  "name": "blog-app",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": true,
+  "volta": {
+    "node": "14.19.3",
+    "yarn": "1.22.19"
+  }
+}
