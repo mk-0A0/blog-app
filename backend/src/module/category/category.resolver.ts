@@ -8,7 +8,7 @@ export class CategoryResolver {
   constructor(private readonly categoryService: CategoryService) {}
   @Mutation(() => Category, { description: 'カテゴリーを作成する' })
   async createCategory(
-    @Args('createCategoryInput') createCategoryInput: CreateCategoryInput,
+    @Args('input') createCategoryInput: CreateCategoryInput,
   ) {
     return this.categoryService.create(createCategoryInput);
   }
@@ -16,7 +16,7 @@ export class CategoryResolver {
   @Mutation(() => Category, { description: 'カテゴリーを更新する' })
   async updateCategory(
     @Args('uuid') uuid: string,
-    @Args('updateCategoryInput') updateCategoryInput: CreateCategoryInput,
+    @Args('input') updateCategoryInput: CreateCategoryInput,
   ) {
     return this.categoryService.update(uuid, updateCategoryInput);
   }

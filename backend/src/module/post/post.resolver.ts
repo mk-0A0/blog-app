@@ -13,14 +13,14 @@ export class PostResolver {
 
   //TODO JWTGuardを作ってuserを認証ユーザーに変える
   @Mutation(() => Post, { description: '記事を作成する' })
-  async createPost(@Args('createPostInput') createPostInput: CreatePostInput) {
+  async createPost(@Args('input') createPostInput: CreatePostInput) {
     const user = await this.user.getSeedUser();
     return this.postService.create(user, createPostInput);
   }
 
   //TODO JWTGuardを作ってuserを認証ユーザーに変える
   @Mutation(() => Post, { description: '記事を更新する' })
-  async updatePost(@Args('updatePostInput') updatePostInput: CreatePostInput) {
+  async updatePost(@Args('input') updatePostInput: CreatePostInput) {
     const user = await this.user.getSeedUser();
     return this.postService.create(user, updatePostInput);
   }

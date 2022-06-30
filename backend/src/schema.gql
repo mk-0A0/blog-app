@@ -57,10 +57,10 @@ input CreatePostInput {
 
 type Mutation {
   """カテゴリーを作成する"""
-  createCategory(createCategoryInput: CreateCategoryInput!): Category!
+  createCategory(input: CreateCategoryInput!): Category!
 
   """記事を作成する"""
-  createPost(createPostInput: CreatePostInput!): Post!
+  createPost(input: CreatePostInput!): Post!
 
   """カテゴリーを削除する"""
   deleteCategory(uuid: String!): Category!
@@ -69,10 +69,10 @@ type Mutation {
   deletePost(uuid: String!): Post!
 
   """カテゴリーを更新する"""
-  updateCategory(updateCategoryInput: CreateCategoryInput!, uuid: String!): Category!
+  updateCategory(input: CreateCategoryInput!, uuid: String!): Category!
 
   """記事を更新する"""
-  updatePost(updatePostInput: CreatePostInput!): Post!
+  updatePost(input: CreatePostInput!): Post!
 }
 
 type Post {
