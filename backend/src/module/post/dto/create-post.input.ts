@@ -1,6 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql';
 import {
-  CIsBoolean,
   CIsNotEmpty,
   CIsString,
   CLength,
@@ -20,7 +19,7 @@ export class CreatePostInput {
   content!: string;
 
   @Field(() => Boolean, { nullable: true, description: '記事を公開するか' })
-  @CIsBoolean('記事を公開するか')
+  // @CIsBoolean('記事を公開するか')
   isPublished?: boolean;
 
   @Field(() => [String], {

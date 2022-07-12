@@ -20,9 +20,12 @@ export class PostResolver {
 
   //TODO JWTGuardを作ってuserを認証ユーザーに変える
   @Mutation(() => Post, { description: '記事を更新する' })
-  async updatePost(@Args('input') updatePostInput: CreatePostInput) {
-    const user = await this.user.getSeedUser();
-    return this.postService.create(user, updatePostInput);
+  async updatePost(
+    @Args('input') updatePostInput: CreatePostInput,
+    @Args('uuid') uuid: string,
+  ) {
+    // const user = await this.user.getSeedUser();
+    return this.postService.update(uuid, updatePostInput);
   }
 
   //TODO JWTGuardを作ってuserを認証ユーザーに変える
