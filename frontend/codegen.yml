@@ -2,8 +2,15 @@ overwrite: true
 schema: "http://localhost:4000/graphql"
 documents: "src/**/*.graphql"
 generates:
-  src/generated/graphql.ts:
+  src/type/__generate__/graphql.ts:
     plugins:
       - "typescript"
-      - "typescript-operations"
-      - "typescript-react-apollo"
+  src/:
+    preset: near-operation-file
+    presetConfig:
+      # graphql.tsだとimportする時に.graphqlと認識されるのでgenerate.graphqlにする
+      extension: .generate.graphql.ts
+      baseTypesPath: type/__generate__/graphql.ts
+      plugins:
+        - 'typescript-operations'
+        - 'typed-document-node'
