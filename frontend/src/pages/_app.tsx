@@ -1,11 +1,14 @@
 import type { AppProps } from 'next/app'
 import { ApolloProvider } from '@apollo/client'
 import { client } from '../../apollo-client'
+import { ChakraProvider } from '@chakra-ui/provider'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ApolloProvider client={client}>
-      <Component {...pageProps} />
+      <ChakraProvider>
+        <Component {...pageProps} />
+      </ChakraProvider>
     </ApolloProvider>
   )
 }
