@@ -15,7 +15,7 @@ export class PostService {
       data: {
         content,
         title,
-        isPublished,
+        isPublished: typeof isPublished === 'undefined' ? false : isPublished,
         publishedAt: isPublished ? new Date() : null,
         categories: {
           connect: categoryUuids?.map((uuid) => ({ uuid })),
@@ -35,19 +35,20 @@ export class PostService {
 
   //TODO: カテゴリーの有無を検証する
   //TODO: isPublishedがtrueのときにpublishedAtを設定する
-  update(currentUser: User, updatePostInput: UpdatePostInput) {
-    const { title, content, categoryUuids } = updatePostInput;
+  update(uuid: string, updatePostInput: UpdatePostInput) {
+    const { title, content, categoryUuids, isPublished } = updatePostInput;
     return this.prisma.post.update({
       data: {
         title,
         content,
+        isPublished: typeof isPublished === 'undefined' ? false : isPublished,
         categories: {
           connect: categoryUuids?.map((uuid) => ({ uuid })),
         },
         updatedAt: new Date(),
       },
       where: {
-        uuid: currentUser.uuid,
+        uuid,
       },
       include: {
         author: true,

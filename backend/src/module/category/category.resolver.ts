@@ -2,6 +2,7 @@ import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { CategoryService } from './category.service';
 import { CreateCategoryInput } from './dto/create-category.input';
 import { Category } from './entities/category.entity';
+import { UpdateCategoryInput } from './dto/update-category.input';
 
 @Resolver(() => Category)
 export class CategoryResolver {
@@ -16,7 +17,7 @@ export class CategoryResolver {
   @Mutation(() => Category, { description: 'カテゴリーを更新する' })
   async updateCategory(
     @Args('uuid') uuid: string,
-    @Args('input') updateCategoryInput: CreateCategoryInput,
+    @Args('input') updateCategoryInput: UpdateCategoryInput,
   ) {
     return this.categoryService.update(uuid, updateCategoryInput);
   }
