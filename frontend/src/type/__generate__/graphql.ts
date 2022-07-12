@@ -1,11 +1,8 @@
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -99,13 +96,14 @@ export type MutationDeletePostArgs = {
 
 
 export type MutationUpdateCategoryArgs = {
-  input: CreateCategoryInput;
+  input: UpdateCategoryInput;
   uuid: Scalars['String'];
 };
 
 
 export type MutationUpdatePostArgs = {
   input: CreatePostInput;
+  uuid: Scalars['String'];
 };
 
 export type Post = {
@@ -176,6 +174,11 @@ export type QueryPostArgs = {
   uuid: Scalars['String'];
 };
 
+export type UpdateCategoryInput = {
+  /** カテゴリー名 */
+  name?: InputMaybe<Scalars['String']>;
+};
+
 export type User = {
   __typename?: 'User';
   /** メールアドレス */
@@ -209,48 +212,3 @@ export type UserEntity = {
   /** uuid */
   uuid: Scalars['String'];
 };
-
-export type CreatePostMutationVariables = Exact<{
-  input: CreatePostInput;
-}>;
-
-
-export type CreatePostMutation = { __typename?: 'Mutation', createPost: { __typename?: 'Post', content: string, isPublished: boolean, title: string, uuid: string } };
-
-
-export const CreatePostDocument = gql`
-    mutation createPost($input: CreatePostInput!) {
-  createPost(input: $input) {
-    content
-    isPublished
-    title
-    uuid
-  }
-}
-    `;
-export type CreatePostMutationFn = Apollo.MutationFunction<CreatePostMutation, CreatePostMutationVariables>;
-
-/**
- * __useCreatePostMutation__
- *
- * To run a mutation, you first call `useCreatePostMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreatePostMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createPostMutation, { data, loading, error }] = useCreatePostMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useCreatePostMutation(baseOptions?: Apollo.MutationHookOptions<CreatePostMutation, CreatePostMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreatePostMutation, CreatePostMutationVariables>(CreatePostDocument, options);
-      }
-export type CreatePostMutationHookResult = ReturnType<typeof useCreatePostMutation>;
-export type CreatePostMutationResult = Apollo.MutationResult<CreatePostMutation>;
-export type CreatePostMutationOptions = Apollo.BaseMutationOptions<CreatePostMutation, CreatePostMutationVariables>;

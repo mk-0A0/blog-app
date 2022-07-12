@@ -11,6 +11,6 @@ generates:
       # graphql.tsだとimportする時に.graphqlと認識されるのでgenerate.graphqlにする
       extension: .generate.graphql.ts
       baseTypesPath: type/__generate__/graphql.ts
-      plugins:
-        - 'typescript-operations'
-        - 'typed-document-node'
+    plugins:
+      - 'typescript-operations'
+      - 'typed-document-node'
