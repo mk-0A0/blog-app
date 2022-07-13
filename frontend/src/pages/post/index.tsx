@@ -12,9 +12,9 @@ import {
 import { useMutation } from '@apollo/client'
 import { CreatePostDocument } from './CreatePost.generate.graphql'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { CreatePostInput } from '../type/__generate__/graphql'
+import { CreatePostInput } from '../../type/__generate__/graphql'
 
-const Home: NextPage = () => {
+const Post: NextPage = () => {
   const [createPost, { loading }] = useMutation(CreatePostDocument)
 
   const { register, handleSubmit } = useForm<CreatePostInput>()
@@ -57,4 +57,4 @@ const Home: NextPage = () => {
   )
 }
 
-export default Home
+export default Post
