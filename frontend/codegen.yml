@@ -1,10 +1,10 @@
 overwrite: true
-schema: "http://localhost:4000/graphql"
-documents: "src/**/*.graphql"
+schema: 'http://localhost:4000/graphql'
+documents: 'src/**/*.graphql'
 generates:
   src/type/__generate__/graphql.ts:
     plugins:
-      - "typescript"
+      - 'typescript'
   src/:
     preset: near-operation-file
     presetConfig:
