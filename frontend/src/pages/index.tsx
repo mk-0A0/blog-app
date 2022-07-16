@@ -5,7 +5,7 @@ import { Box, Button, Container, Grid, Text } from '@chakra-ui/react'
 import Link from 'next/link'
 
 const Home: NextPage = () => {
-  const { data, loading, error } = useQuery(PostsDocument)
+  const { data } = useQuery(PostsDocument)
   return (
     <Container maxW={500} w={'full'} mx={'auto'}>
       <Grid gap={5}>
