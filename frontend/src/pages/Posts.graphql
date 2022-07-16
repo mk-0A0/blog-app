@@ -1,0 +1,9 @@
+query Posts {
+  posts {
+    author {
+      name
+    }
+    content
+    title
+  }
+}
