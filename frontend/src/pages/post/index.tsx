@@ -13,11 +13,15 @@ import { useMutation } from '@apollo/client'
 import { CreatePostDocument } from './CreatePost.generate.graphql'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { CreatePostInput } from '../../type/__generate__/graphql'
+import { useRouter } from 'next/router'
 
 const Post: NextPage = () => {
   const [createPost, { loading }] = useMutation(CreatePostDocument)
 
   const { register, handleSubmit } = useForm<CreatePostInput>()
+
+  const router = useRouter()
+  const { push } = router
 
   const toast = useToast()
   const onSubmit: SubmitHandler<CreatePostInput> = (data) => {
@@ -31,6 +35,7 @@ const Post: NextPage = () => {
       },
     })
     toast({ status: 'success', title: '記事を投稿しました' })
+    push(`/post/complete`)
   }
 
   return (
