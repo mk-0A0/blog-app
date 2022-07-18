@@ -28,7 +28,7 @@ const Home: NextPage = () => {
                 <Text fontWeight={'bold'} fontSize={'lg'}>
                   {post.title}
                 </Text>
-                <Text>{post.content}</Text>
+                <Text noOfLines={1}>{post.content}</Text>
               </Box>
               <Spacer />
               <Link href={`/${post.uuid}`}>
