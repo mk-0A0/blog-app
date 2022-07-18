@@ -70,7 +70,7 @@ export class PostService {
       throw new Error('Post not found');
     }
 
-    this.prisma.post.delete({
+    return this.prisma.post.delete({
       where: {
         uuid,
       },
