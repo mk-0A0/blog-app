@@ -16,7 +16,8 @@ import Link from 'next/link'
 import { ChevronRightIcon } from '@chakra-ui/icons'
 
 const Home: NextPage = () => {
-  const { data } = useQuery(PostsDocument)
+  const { data, refetch } = useQuery(PostsDocument)
+  refetch()
   return (
     <Container maxW={500} w={'full'} mx={'auto'}>
       <Grid gap={5}>
