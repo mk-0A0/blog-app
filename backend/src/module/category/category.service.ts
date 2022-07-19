@@ -24,6 +24,7 @@ export class CategoryService {
     return this.prisma.category.update({
       data: {
         name,
+        updatedAt: new Date(),
       },
       where: {
         uuid,
@@ -46,7 +47,11 @@ export class CategoryService {
   }
 
   findAll() {
-    return this.prisma.category.findMany();
+    return this.prisma.category.findMany({
+      orderBy: {
+        updatedAt: 'desc',
+      },
+    });
   }
 
   findOne(uuid: string) {

@@ -83,6 +83,9 @@ export class PostService {
 
   findAll(currentUser: User) {
     return this.prisma.post.findMany({
+      orderBy: {
+        updatedAt: 'desc',
+      },
       where: {
         authorId: currentUser.id,
       },
