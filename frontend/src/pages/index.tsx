@@ -14,6 +14,7 @@ import {
 } from '@chakra-ui/react'
 import Link from 'next/link'
 import { ChevronRightIcon } from '@chakra-ui/icons'
+import { Fragment } from 'react'
 
 const Home: NextPage = () => {
   const { data, refetch } = useQuery(PostsDocument)
@@ -22,8 +23,8 @@ const Home: NextPage = () => {
     <Container maxW={500} w={'full'} mx={'auto'}>
       <Grid gap={5}>
         {data?.posts.map((post, index) => (
-          <>
-            <HStack key={`post_${index}`}>
+          <Fragment key={`post_${index}`}>
+            <HStack>
               <Box>
                 <Text fontWeight={'bold'} fontSize={'lg'}>
                   {post.title}
@@ -40,7 +41,7 @@ const Home: NextPage = () => {
               </Link>
             </HStack>
             <Divider />
-          </>
+          </Fragment>
         ))}
       </Grid>
       <Button mt={10} w={'full'}>
