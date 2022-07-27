@@ -93,7 +93,7 @@ type Mutation {
   updateCategory(input: UpdateCategoryInput!, uuid: String!): Category!
 
   """記事を更新する"""
-  updatePost(input: CreatePostInput!, uuid: String!): Post!
+  updatePost(input: UpdatePostInput!, uuid: String!): Post!
 }
 
 type Post {
@@ -176,6 +176,20 @@ type Token {
 input UpdateCategoryInput {
   """カテゴリー名"""
   name: String
+}
+
+input UpdatePostInput {
+  """記事に付けるカテゴリー"""
+  categoryUuids: [String!]
+
+  """記事の本文"""
+  content: String
+
+  """記事を公開するか"""
+  isPublished: Boolean
+
+  """記事のタイトル"""
+  title: String
 }
 
 type User {
