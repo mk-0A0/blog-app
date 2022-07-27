@@ -3,6 +3,7 @@ import { PostService } from './post.service';
 import { Post } from './entities/post.entity';
 import { CreatePostInput } from './dto/create-post.input';
 import { UserService } from '../user/user.service';
+import { UpdatePostInput } from './dto/update-post.input';
 
 @Resolver(() => Post)
 export class PostResolver {
@@ -21,7 +22,7 @@ export class PostResolver {
   //TODO JWTGuardを作ってuserを認証ユーザーに変える
   @Mutation(() => Post, { description: '記事を更新する' })
   async updatePost(
-    @Args('input') updatePostInput: CreatePostInput,
+    @Args('input') updatePostInput: UpdatePostInput,
     @Args('uuid') uuid: string,
   ) {
     // const user = await this.user.getSeedUser();
