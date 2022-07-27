@@ -1,0 +1,6 @@
+mutation UpdatePost ( $input: UpdatePostInput!, $uuid: String! ) {
+    updatePost(input: $input, uuid: $uuid) {
+        content
+        title
+    }
+}
