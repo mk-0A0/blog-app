@@ -6,6 +6,7 @@ import { PostModule } from './module/post/post.module';
 import { CategoryModule } from './module/category/category.module';
 import { UserModule } from './module/user/user.module';
 import { PrismaModule } from './prisma/prisma.module';
+import { AuthModule } from './module/auth/auth.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { PrismaModule } from './prisma/prisma.module';
     CategoryModule,
     UserModule,
     PrismaModule,
+    AuthModule,
   ],
   providers: [],
 })

@@ -55,18 +55,39 @@ input CreatePostInput {
   title: String!
 }
 
+input CreateUserInput {
+  """ユーザーメールアドレス"""
+  email: String!
+
+  """ユーザー名"""
+  name: String!
+
+  """ユーザーパスワード"""
+  password: String!
+}
+
+input LoginUserInput {
+  """ユーザーメールアドレス"""
+  email: String!
+
+  """ユーザーパスワード"""
+  password: String!
+}
+
 type Mutation {
   """カテゴリーを作成する"""
   createCategory(input: CreateCategoryInput!): Category!
 
   """記事を作成する"""
   createPost(input: CreatePostInput!): Post!
+  createUser(createUserInput: CreateUserInput!): User!
 
   """カテゴリーを削除する"""
   deleteCategory(uuid: String!): Category!
 
   """記事を削除する"""
   deletePost(uuid: String!): Post!
+  login(loginUserInput: LoginUserInput!): Token!
 
   """カテゴリーを更新する"""
   updateCategory(input: UpdateCategoryInput!, uuid: String!): Category!
@@ -145,6 +166,11 @@ type Query {
 
   """記事を複数取得する"""
   posts: [Post!]!
+}
+
+type Token {
+  """JWTトークン"""
+  token: String!
 }
 
 input UpdateCategoryInput {
