@@ -58,16 +58,34 @@ export type CreatePostInput = {
   title: Scalars['String'];
 };
 
+export type CreateUserInput = {
+  /** ユーザーメールアドレス */
+  email: Scalars['String'];
+  /** ユーザー名 */
+  name: Scalars['String'];
+  /** ユーザーパスワード */
+  password: Scalars['String'];
+};
+
+export type LoginUserInput = {
+  /** ユーザーメールアドレス */
+  email: Scalars['String'];
+  /** ユーザーパスワード */
+  password: Scalars['String'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   /** カテゴリーを作成する */
   createCategory: Category;
   /** 記事を作成する */
   createPost: Post;
+  createUser: User;
   /** カテゴリーを削除する */
   deleteCategory: Category;
   /** 記事を削除する */
   deletePost: Post;
+  login: Token;
   /** カテゴリーを更新する */
   updateCategory: Category;
   /** 記事を更新する */
@@ -85,6 +103,11 @@ export type MutationCreatePostArgs = {
 };
 
 
+export type MutationCreateUserArgs = {
+  createUserInput: CreateUserInput;
+};
+
+
 export type MutationDeleteCategoryArgs = {
   uuid: Scalars['String'];
 };
@@ -95,6 +118,11 @@ export type MutationDeletePostArgs = {
 };
 
 
+export type MutationLoginArgs = {
+  loginUserInput: LoginUserInput;
+};
+
+
 export type MutationUpdateCategoryArgs = {
   input: UpdateCategoryInput;
   uuid: Scalars['String'];
@@ -102,7 +130,7 @@ export type MutationUpdateCategoryArgs = {
 
 
 export type MutationUpdatePostArgs = {
-  input: CreatePostInput;
+  input: UpdatePostInput;
   uuid: Scalars['String'];
 };
 
@@ -174,9 +202,26 @@ export type QueryPostArgs = {
   uuid: Scalars['String'];
 };
 
+export type Token = {
+  __typename?: 'Token';
+  /** JWTトークン */
+  token: Scalars['String'];
+};
+
 export type UpdateCategoryInput = {
   /** カテゴリー名 */
   name?: InputMaybe<Scalars['String']>;
+};
+
+export type UpdatePostInput = {
+  /** 記事に付けるカテゴリー */
+  categoryUuids?: InputMaybe<Array<Scalars['String']>>;
+  /** 記事の本文 */
+  content?: InputMaybe<Scalars['String']>;
+  /** 記事を公開するか */
+  isPublished?: InputMaybe<Scalars['Boolean']>;
+  /** 記事のタイトル */
+  title?: InputMaybe<Scalars['String']>;
 };
 
 export type User = {

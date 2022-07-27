@@ -6,25 +6,30 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 
 const PostDetail: NextPage = () => {
-  const router = useRouter()
-  const { post_uuid } = router.query
-  console.log(post_uuid)
+  const { query } = useRouter()
+
+  const { post_uuid } = query
   const { data } = useQuery(PostDetailDocument, {
     variables: {
       uuid: `${post_uuid}`,
     },
   })
+
   return (
     <Container maxW={500} w={'full'} mx={'auto'}>
       <Text fontWeight={'bold'} fontSize={'xl'}>
         {data?.post.title}
       </Text>
-      <Divider />
+      <Divider my={5} />
+
       <Text mt={5}>{data?.post.content}</Text>
       <Box mt={10}>
         <Text>{data?.post.author.name}</Text>
         <Text>{data?.post.author.email}</Text>
       </Box>
+      <Button as={'a'} href={`${post_uuid}/edit`} mt={5} w={'full'}>
+        編集
+      </Button>
       <Link passHref href={'/'}>
         <Button mt={5} w={'full'} as={'a'}>
           一覧に戻る
