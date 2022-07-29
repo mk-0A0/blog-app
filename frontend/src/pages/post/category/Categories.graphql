@@ -1,6 +1,6 @@
-query Categories{
-    categories {
-        name
-        uuid
-    }
+query Categories {
+  categories {
+    name
+    uuid
+  }
 }

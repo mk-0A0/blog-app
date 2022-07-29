@@ -5,6 +5,6 @@ query Posts {
     }
     content
     title
-      uuid
+    uuid
   }
 }
