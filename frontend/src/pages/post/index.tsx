@@ -14,6 +14,7 @@ import { CreatePostDocument } from './CreatePost.generate.graphql'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { CreatePostInput } from '../../type/__generate__/graphql'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 const Post: NextPage = () => {
   const [createPost, { loading }] = useMutation(CreatePostDocument)
@@ -64,9 +65,11 @@ const Post: NextPage = () => {
         >
           投稿
         </Button>
-        <Button as={'a'} href={'/post/category'} w={'full'} variant={'solid'}>
-          カテゴリを作成
-        </Button>
+        <Link passHref href={'/post/category'}>
+          <Button as={'a'} w={'full'} variant={'solid'}>
+            カテゴリを作成
+          </Button>
+        </Link>
       </VStack>
     </Container>
   )

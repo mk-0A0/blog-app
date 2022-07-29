@@ -32,8 +32,9 @@ const Home: NextPage = () => {
                 <Text noOfLines={1}>{post.content}</Text>
               </Box>
               <Spacer />
-              <Link href={`/${post.uuid}`}>
+              <Link passHref href={`/${post.uuid}`}>
                 <IconButton
+                  as={'a'}
                   variant={'ghost'}
                   aria-label={'button'}
                   icon={<ChevronRightIcon />}
@@ -44,9 +45,11 @@ const Home: NextPage = () => {
           </Fragment>
         ))}
       </Grid>
-      <Button mt={10} w={'full'}>
-        <Link href={'/post'}>記事を投稿する</Link>
-      </Button>
+      <Link href={'/post'}>
+        <Button as={'a'} mt={10} w={'full'}>
+          記事を投稿する
+        </Button>
+      </Link>
     </Container>
   )
 }
