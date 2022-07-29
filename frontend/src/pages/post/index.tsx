@@ -64,6 +64,9 @@ const Post: NextPage = () => {
         >
           投稿
         </Button>
+        <Button as={'a'} href={'/post/category'} w={'full'} variant={'solid'}>
+          カテゴリを作成
+        </Button>
       </VStack>
     </Container>
   )
