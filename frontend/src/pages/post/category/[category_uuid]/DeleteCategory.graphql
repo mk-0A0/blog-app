@@ -1,0 +1,7 @@
+mutation DeleteCategory ( $uuid: String! ){
+    deleteCategory(uuid: $uuid) {
+        id
+        name
+        uuid
+    }
+}
