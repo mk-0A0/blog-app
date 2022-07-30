@@ -1,0 +1,7 @@
+query Category ( $uuid: String! ){
+    category(uuid: $uuid) {
+        id
+        name
+        uuid
+    }
+}

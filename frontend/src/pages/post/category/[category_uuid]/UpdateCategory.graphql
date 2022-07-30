@@ -1,0 +1,7 @@
+mutation UpdateCategory ( $input: UpdateCategoryInput!, $uuid: String! ) {
+    updateCategory(input: $input, uuid: $uuid) {
+        id
+        name
+        uuid
+    }
+}

@@ -8,13 +8,52 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { NextPage } from 'next'
-import { useMutation } from '@apollo/client'
+import { useMutation, useQuery } from '@apollo/client'
 import { DeleteCategoryDocument } from './DeleteCategory.generate.graphql'
 import { useRouter } from 'next/router'
+import { useForm } from 'react-hook-form'
+import { UpdateCategoryInput } from '../../../../type/__generate__/graphql'
+import { CategoryDocument } from './Category.generate.graphql'
+import { UpdateCategoryDocument } from './UpdateCategory.generate.graphql'
+import { data } from 'browserslist'
+import category from '../index'
 
 const CategoryDetail: NextPage = () => {
   const { push, query } = useRouter()
   const toast = useToast()
+  const { register, handleSubmit, setValue } = useForm<UpdateCategoryInput>()
+
+  useQuery(CategoryDocument, {
+    onCompleted: (data) => {
+      setValue('name', data?.category.name)
+    },
+    variables: {
+      uuid: `${query.category_uuid}`,
+    },
+  })
+
+  /**
+   * update
+   */
+  const [updateCategory, { loading: updateLoading }] = useMutation(
+    UpdateCategoryDocument
+  )
+  const onUpdate = async ({ ...form }) => {
+    try {
+      await updateCategory({
+        variables: {
+          input: {
+            name: form.name,
+          },
+          uuid: `${query.category_uuid}`,
+        },
+      })
+      toast({ status: 'success', title: 'カテゴリを更新しました' })
+      push('/post/category')
+    } catch (e) {
+      toast({ status: 'error', title: 'カテゴリを更新できませんでした' })
+    }
+  }
 
   /**
    * delete
@@ -41,9 +80,15 @@ const CategoryDetail: NextPage = () => {
       <VStack gap={5}>
         <FormControl>
           <FormLabel>カテゴリ名</FormLabel>
-          <Input />
+          <Input {...register('name')} />
         </FormControl>
-        <Button w={'full'}>更新</Button>
+        <Button
+          w={'full'}
+          isLoading={updateLoading}
+          onClick={handleSubmit(onUpdate)}
+        >
+          更新
+        </Button>
         <Button
           w={'full'}
           variant={'ghost'}
