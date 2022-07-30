@@ -3,6 +3,8 @@ import {
   Container,
   FormControl,
   FormLabel,
+  HStack,
+  IconButton,
   Input,
   Spacer,
   Text,
@@ -14,6 +16,8 @@ import { CategoriesDocument } from './Categories.generate.graphql'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { CreateCategoryInput } from '../../../type/__generate__/graphql'
 import { CreateCategoryDocument } from './CreateCategory.generate.graphql'
+import { ChevronRightIcon } from '@chakra-ui/icons'
+import Link from 'next/link'
 
 const Category: NextPage = () => {
   const { data, refetch } = useQuery(CategoriesDocument)
@@ -52,7 +56,18 @@ const Category: NextPage = () => {
         追加
       </Button>
       {data?.categories.map((category) => (
-        <Text key={category.uuid}>{category.name}</Text>
+        <HStack key={category.uuid}>
+          <Text>{category.name}</Text>
+          <Spacer />
+          <Link passHref href={`/post/category/${category.uuid}`}>
+            <IconButton
+              as={'a'}
+              variant={'ghost'}
+              aria-label={'button'}
+              icon={<ChevronRightIcon />}
+            />
+          </Link>
+        </HStack>
       ))}
     </Container>
   )
