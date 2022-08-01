@@ -1,20 +1,24 @@
 import type { NextPage } from 'next'
 import {
   Button,
+  Checkbox,
   Container,
   FormControl,
   FormLabel,
+  HStack,
   Input,
+  Select,
   Textarea,
   useToast,
   VStack,
 } from '@chakra-ui/react'
-import { useMutation } from '@apollo/client'
+import { useMutation, useQuery } from '@apollo/client'
 import { CreatePostDocument } from './CreatePost.generate.graphql'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { CreatePostInput } from '../../type/__generate__/graphql'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+import { CategoriesDocument } from './category/Categories.generate.graphql'
 
 const Post: NextPage = () => {
   const [createPost, { loading }] = useMutation(CreatePostDocument)
@@ -46,6 +50,8 @@ const Post: NextPage = () => {
     }
   }
 
+  const { data } = useQuery(CategoriesDocument)
+
   return (
     <Container maxW={500} w={'full'} mx={'auto'}>
       <VStack gap={5}>
@@ -56,6 +62,14 @@ const Post: NextPage = () => {
         <FormControl>
           <FormLabel>本文</FormLabel>
           <Textarea {...register('content')} />
+        </FormControl>
+        <FormControl>
+          <FormLabel>カテゴリ</FormLabel>
+          <HStack gap={5}>
+            {data?.categories.map((category) => (
+              <Checkbox key={category.uuid}>{category.name}</Checkbox>
+            ))}
+          </HStack>
         </FormControl>
         <Button
           isLoading={loading}
