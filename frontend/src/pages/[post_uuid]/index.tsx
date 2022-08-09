@@ -1,4 +1,12 @@
-import { Box, Button, Container, Divider, Text } from '@chakra-ui/react'
+import {
+  Box,
+  Button,
+  Container,
+  Divider,
+  HStack,
+  Tag,
+  Text,
+} from '@chakra-ui/react'
 import { NextPage } from 'next'
 import { useQuery } from '@apollo/client'
 import { PostDetailDocument } from './PostDetail.generate.graphql'
@@ -20,12 +28,27 @@ const PostDetail: NextPage = () => {
       <Text fontWeight={'bold'} fontSize={'xl'}>
         {data?.post.title}
       </Text>
-      {data?.post?.categories.map((category) => (
-        <Text key={category.uuid}>{category.name}</Text>
-      ))}
       <Divider my={5} />
-
       <Text mt={5}>{data?.post.content}</Text>
+      {data?.post?.categories.length ? (
+        <>
+          <Text mt={5}>カテゴリ</Text>
+          <HStack mt={1}>
+            {data?.post?.categories.map((category) => (
+              <Tag
+                key={category.uuid}
+                size={'md'}
+                variant={'solid'}
+                rounded={'full'}
+              >
+                {category.name}
+              </Tag>
+            ))}
+          </HStack>
+        </>
+      ) : (
+        <></>
+      )}
       <Box mt={10}>
         <Text>{data?.post.author.name}</Text>
         <Text>{data?.post.author.email}</Text>
