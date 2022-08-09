@@ -1,6 +1,11 @@
 mutation UpdatePost($input: UpdatePostInput!, $uuid: String!) {
-  updatePost(input: $input, uuid: $uuid) {
-    content
-    title
-  }
+    updatePost(input: $input, uuid: $uuid) {
+        content
+        title
+        categories {
+            id
+            name
+            uuid
+        }
+    }
 }

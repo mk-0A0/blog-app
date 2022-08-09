@@ -1,9 +1,12 @@
 import { NextPage } from 'next'
 import {
   Button,
+  Checkbox,
+  CheckboxGroup,
   Container,
   FormControl,
   FormLabel,
+  HStack,
   Input,
   Textarea,
   useToast,
@@ -13,23 +16,31 @@ import { useMutation, useQuery } from '@apollo/client'
 import { DeletePostDocument } from './PostDelete.generate.graphql'
 import { useRouter } from 'next/router'
 import { UpdatePostDocument } from './PostEdit.generate.graphql'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import { UpdatePostInput } from '../../../type/__generate__/graphql'
 import { PostDetailDocument } from '../PostDetail.generate.graphql'
+import { CategoriesDocument } from '../../post/category/Categories.generate.graphql'
+import { loadWebpackHook } from 'next/dist/server/config-utils'
 
 const PostEdit: NextPage = () => {
   const toast = useToast()
   const { query, push } = useRouter()
-  const { register, setValue, handleSubmit } = useForm<UpdatePostInput>({
-    defaultValues: {
-      title: '',
-      content: '',
-    },
-  })
+  const { register, setValue, handleSubmit, getValues, control, watch } =
+    useForm<UpdatePostInput>({
+      defaultValues: {
+        title: '',
+        content: '',
+        categoryUuids: [],
+      },
+    })
+
+  console.log(watch())
   const { refetch } = useQuery(PostDetailDocument, {
     onCompleted: (data) => {
       setValue('title', data.post.title)
       setValue('content', data.post.content)
+      const categoryUuids = data.post.categories.map(({ uuid }) => uuid)
+      setValue('categoryUuids', categoryUuids)
     },
     variables: {
       uuid: `${query.post_uuid}`,
@@ -48,6 +59,7 @@ const PostEdit: NextPage = () => {
           input: {
             title: form.title,
             content: form.content,
+            categoryUuids: form.categoryUuids,
           },
           uuid: `${query.post_uuid}`,
         },
@@ -80,6 +92,8 @@ const PostEdit: NextPage = () => {
     }
   }
 
+  const { data } = useQuery(CategoriesDocument)
+
   return (
     <Container maxW={500} w={'full'} mx={'auto'}>
       <VStack gap={5}>
@@ -90,6 +104,24 @@ const PostEdit: NextPage = () => {
         <FormControl>
           <FormLabel>本文</FormLabel>
           <Textarea {...register('content')} />
+        </FormControl>
+        <FormControl>
+          <FormLabel>カテゴリ</FormLabel>
+          <Controller
+            name={'categoryUuids'}
+            control={control}
+            render={({ field }) => (
+              <CheckboxGroup {...field} value={field.value ?? []}>
+                <HStack gap={5}>
+                  {data?.categories.map((category) => (
+                    <Checkbox key={category.uuid} value={category.uuid}>
+                      {category.name}
+                    </Checkbox>
+                  ))}
+                </HStack>
+              </CheckboxGroup>
+            )}
+          />
         </FormControl>
         <Button
           isLoading={updateLoading}
