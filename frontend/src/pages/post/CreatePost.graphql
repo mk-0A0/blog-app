@@ -1,8 +1,13 @@
 mutation createPost($input: CreatePostInput!) {
-  createPost(input: $input) {
-    content
-    isPublished
-    title
-    uuid
-  }
+    createPost(input: $input) {
+        content
+        isPublished
+        title
+        uuid
+        categories {
+            id
+            name
+            uuid
+        }
+    }
 }

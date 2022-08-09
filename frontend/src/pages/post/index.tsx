@@ -29,7 +29,7 @@ const Post: NextPage = () => {
   const { push } = router
 
   const toast = useToast()
-  const onSubmit: SubmitHandler<CreatePostInput> = async (data) => {
+  const onSubmit = async (data: CreatePostInput) => {
     // try...catchで処理が成功・失敗したときの出し分けをする
     try {
       // createPostから返ってくるdataをcreatePostDataに入れてqueryに渡す
@@ -39,6 +39,7 @@ const Post: NextPage = () => {
             title: data.title,
             content: data.content,
             isPublished: data.isPublished,
+            categoryUuids: data.categoryUuids,
           },
         },
       })
@@ -67,7 +68,13 @@ const Post: NextPage = () => {
           <FormLabel>カテゴリ</FormLabel>
           <HStack gap={5}>
             {data?.categories.map((category) => (
-              <Checkbox key={category.uuid}>{category.name}</Checkbox>
+              <Checkbox
+                key={category.uuid}
+                value={category.uuid}
+                {...register('categoryUuids')}
+              >
+                {category.name}
+              </Checkbox>
             ))}
           </HStack>
         </FormControl>
