@@ -20,6 +20,9 @@ const PostDetail: NextPage = () => {
       <Text fontWeight={'bold'} fontSize={'xl'}>
         {data?.post.title}
       </Text>
+      {data?.post?.categories.map((category) => (
+        <Text key={category.uuid}>{category.name}</Text>
+      ))}
       <Divider my={5} />
 
       <Text mt={5}>{data?.post.content}</Text>
