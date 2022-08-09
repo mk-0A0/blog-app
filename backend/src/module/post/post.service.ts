@@ -103,6 +103,7 @@ export class PostService {
         uuid,
       },
       include: {
+        categories: true,
         author: true,
       },
     });
