@@ -1,11 +1,16 @@
 query PostDetail($uuid: String!) {
-  post(uuid: $uuid) {
-    author {
-      email
-      name
+    post(uuid: $uuid) {
+        uuid
+        content
+        title
+        categories {
+            id
+            name
+            uuid
+        }
+        author {
+            email
+            name
+        }
     }
-    uuid
-    content
-    title
-  }
 }
