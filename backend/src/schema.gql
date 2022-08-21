@@ -80,6 +80,8 @@ type Mutation {
 
   """記事を作成する"""
   createPost(input: CreatePostInput!): Post!
+
+  """ユーザー作成"""
   createUser(createUserInput: CreateUserInput!): User!
 
   """カテゴリーを削除する"""
@@ -87,6 +89,8 @@ type Mutation {
 
   """記事を削除する"""
   deletePost(uuid: String!): Post!
+
+  """ログイン"""
   login(loginUserInput: LoginUserInput!): Token!
 
   """カテゴリーを更新する"""

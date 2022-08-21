@@ -10,7 +10,9 @@ import { LocalAuthGuard } from './guards/local-auth.guard';
 export class AuthResolver {
   constructor(private readonly authService: AuthService) {}
 
-  @Mutation(() => Token)
+  @Mutation(() => Token, {
+    description: 'ログイン',
+  })
   @UseGuards(LocalAuthGuard)
   async login(
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
