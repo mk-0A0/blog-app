@@ -80,11 +80,13 @@ export type Mutation = {
   createCategory: Category;
   /** 記事を作成する */
   createPost: Post;
+  /** ユーザー作成 */
   createUser: User;
   /** カテゴリーを削除する */
   deleteCategory: Category;
   /** 記事を削除する */
   deletePost: Post;
+  /** ログイン */
   login: Token;
   /** カテゴリーを更新する */
   updateCategory: Category;
