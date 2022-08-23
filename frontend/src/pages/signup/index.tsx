@@ -20,8 +20,8 @@ const Signup: NextPage = () => {
     <Container maxW={500} w={'full'} mx={'auto'}>
       <Grid gap={5}>
         <FormControl>
-          <FormLabel>メールアドレス</FormLabel>
-          <Input type="email" />
+          <FormLabel>名前</FormLabel>
+          <Input type="text" />
         </FormControl>
         <FormControl>
           <FormLabel>パスワード</FormLabel>
