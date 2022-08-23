@@ -66,7 +66,7 @@ model Post {
   /// 記事の作者のID
   authorId    Int        @map("author_id")
   /// 記事のカテゴリー
-  categories  Category[] @relation(references: [id])
+  categories  Category[]
 
   @@map("posts")
 }
@@ -80,7 +80,7 @@ model Category {
   /// カテゴリー名
   name      String   @unique
   /// カテゴリーに紐付いている記事
-  posts     Post[]   @relation(references: [id])
+  posts     Post[]
   /// カテゴリーの作成日
   /// @HideField()
   createdAt DateTime @default(now()) @map("created_at")
